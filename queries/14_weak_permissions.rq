@@ -1,0 +1,4 @@
+# Weak permissions (not forbidden because no applicable norm forbids it), counted per case and agent
+SELECT ?case ?agent (COUNT(?wp) AS ?weakPermissions) WHERE {
+  ?wp a norma:WeakPermission ; norma:inFactPattern ?case ; norma:forAgent ?agent .
+} GROUP BY ?case ?agent ORDER BY ?case ?agent

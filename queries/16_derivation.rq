@@ -1,0 +1,7 @@
+# Derivation provenance: rule set, assumptions, and whether any ordering has a cycle
+SELECT ?activity ?ruleSet (GROUP_CONCAT(DISTINCT ?as; separator=", ") AS ?assumptions)
+       (SUM(IF(?acyc = false, 1, 0)) AS ?cyclicOrderings) WHERE {
+  ?activity a normad:DerivationActivity ; normad:ruleSetVersion ?ruleSet .
+  OPTIONAL { ?activity normad:computedUnderAssumption ?a . BIND(STRAFTER(STR(?a), "#") AS ?as) }
+  OPTIONAL { ?o a normad:PrevalenceOrdering ; normad:isAcyclic ?acyc }
+} GROUP BY ?activity ?ruleSet

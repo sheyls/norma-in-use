@@ -1,0 +1,9 @@
+# In a case (--bind case=L01_ordinary): which positions reach which party through APPLICABLE norms
+SELECT ?party ?kind ?norm ?action ?toward WHERE {
+  ?o normad:forFactPattern ?case . ?e normad:inOrdering ?o ; normad:evaluatedNorm ?norm ;
+     normad:hasApplicabilityStatus normad:Applicable ; normad:reachesParty ?party .
+  ?norm norma:confersLegalPosition ?p . ?p a ?k . VALUES ?k { norma:Duty norma:Privilege }
+  BIND(STRAFTER(STR(?k), "#") AS ?kind)
+  OPTIONAL { ?p norma:concernsLegalAction/rdfs:label ?action }
+  OPTIONAL { ?norm norma:hasCounterparty ?toward }
+} ORDER BY ?party ?kind ?norm

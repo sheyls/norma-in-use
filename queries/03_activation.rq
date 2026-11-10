@@ -1,0 +1,7 @@
+# Activation: which condition (and branch) activates which norm
+SELECT ?condition ?branch ?norm ?question WHERE {
+  ?condition norma:hasTrigger ?te .
+  ?te norma:activatesNorm ?norm ; norma:hasOutcome ?o .
+  BIND(IF(?o = norma:TrueOutcome, "true", IF(?o = norma:FalseOutcome, "false", STR(?o))) AS ?branch)
+  OPTIONAL { ?condition norma:conditionStatement ?question }
+} ORDER BY ?condition ?norm

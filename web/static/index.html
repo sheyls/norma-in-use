@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NORMA-O explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+<script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+</head>
+<body>
+<header class="top">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
+  <a class="brand" href="#home">
+   
+    <div><div class="eyebrow">NORMA-O 2.0 · demo</div><h1 id="title">Loading…</h1></div>
+  </a>
+  <div class="reading" id="readingBox" hidden>
+    <span class="lbl">Legal reading</span>
+    <div class="seg" id="readingSeg" role="radiogroup" aria-label="Legal reading"></div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="side" aria-label="Sections">
+    <div class="navgroup"><a href="#home" data-route="home"><span class="ic">⌂</span><span>Home<span class="sub">What this demo is and how to read it</span></span></a></div>
+    <div class="navgroup"><div class="navh">Who owes what</div><div id="navRoles"></div></div>
+    <div class="navgroup"><div class="navh">The contract</div>
+      <a href="#norms" data-route="norms"><span class="ic">≡</span><span>All norms<span class="sub">Clause by clause, in plain words</span></span></a>
+      <a href="#annotation" data-route="annotation"><span class="ic">{ }</span><span>The annotation<span class="sub">The hand-written Turtle file</span></span></a></div>
+    <div class="navgroup"><div class="navh">Reasoning</div>
+      <a href="#cases" data-route="cases"><span class="ic">⇢</span><span>Cases<span class="sub">What applies if something happens, and why</span></span></a>
+      <a href="#exceptions" data-route="exceptions"><span class="ic">⤼</span><span>Exceptions<span class="sub">Which norm overrides which, and when</span></span></a></div>
+    <div class="navgroup"><div class="navh">Explore</div>
+      <a href="#graph" data-route="graph"><span class="ic">◇</span><span>Graph<span class="sub">Nodes, their links and their properties</span></span></a>
+      <a href="#sparql" data-route="sparql"><span class="ic">⌕</span><span>SPARQL<span class="sub">The queries behind every view</span></span></a></div>
+    <div class="navfoot" id="navFoot"></div>
+  </nav>
+  <main class="main" id="main" tabindex="-1"></main>
+</div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Norm sheet">
+  <button class="close" id="drawerClose" aria-label="Close">×</button>
+  <div id="drawerBody"></div>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="busy" hidden>Deriving…</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

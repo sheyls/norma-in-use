@@ -1,0 +1,21 @@
+prevalence ladder: base: 3 levels, acyclic | Reading B: art. 11.3 LAU (RDL 29/2026): 3 levels, acyclic
+
+case                         applies defeated not act.  applies defeated not act.   readings: base | Reading B: art. 11.3 LAU (RDL 29/2026)
+L01_ordinary                      22        0       30       22        0       31
+L02_late_rent                     25        0       27       25        0       28
+L03_extension                     23        1       28       23        1       29
+L04_no_renewal                    17       12       23       17       12       24
+L05_late_notice                   17       13       22       17       13       23
+L06_landlord_notice               17       12       23       17       12       24
+L07_withdraw_8m                   17       11       24       17       12       24
+L08_withdraw_14m                  16       11       25       17       11       25
+L09_sublet                        26        0       26       26        0       27
+L10_works                         22        1       29       22        1       30
+L11_end_damage                    20       12       20       20       12       21
+L12_pet                           24        0       28       24        0       29
+L13_no_supply                     23        0       29       23        0       30
+L14_five_years                    16       11       25       16       11       26
+
+where «Reading B: art. 11.3 LAU (RDL 29/2026)» changes the status of a norm of the base reading: 1
+  L07_withdraw_8m          O_4_compensation       Applicable -> Defeated
+norms only in «Reading B: art. 11.3 LAU (RDL 29/2026)»: LAU_11_3

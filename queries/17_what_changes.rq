@@ -1,0 +1,6 @@
+# Norms whose status is not the same in every case: what the cases actually discriminate
+SELECT ?norm (COUNT(DISTINCT ?s) AS ?distinctStatuses)
+       (SUM(IF(?s = normad:Applicable, 1, 0)) AS ?applicableIn) (SUM(IF(?s = normad:Defeated, 1, 0)) AS ?defeatedIn)
+       (SUM(IF(?s = normad:NotActivated, 1, 0)) AS ?notActivatedIn) WHERE {
+  ?o normad:forFactPattern ?case . ?e normad:inOrdering ?o ; normad:evaluatedNorm ?norm ; normad:hasApplicabilityStatus ?s .
+} GROUP BY ?norm HAVING (COUNT(DISTINCT ?s) > 1) ORDER BY DESC(?defeatedIn) ?norm

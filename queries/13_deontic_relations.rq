@@ -1,0 +1,8 @@
+# Deontic relations between norms (prima facie) and jural opposition between positions
+SELECT ?a ?relation ?b WHERE {
+  { ?a norma:deonticallyContradicts ?b . BIND("contradicts" AS ?relation) }
+  UNION { ?a norma:deonticallyConflictsWith ?b . FILTER NOT EXISTS { ?a norma:deonticallyContradicts ?b } BIND("conflicts (contrary)" AS ?relation) }
+  UNION { ?a norma:isDeonticallyEquivalentTo ?b . BIND("equivalent" AS ?relation) }
+  UNION { ?a norma:isJuralOppositeOf ?b . BIND("jural opposite (positions)" AS ?relation) }
+  FILTER(STR(?a) < STR(?b))
+} ORDER BY ?relation ?a

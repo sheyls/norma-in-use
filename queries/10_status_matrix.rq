@@ -1,0 +1,5 @@
+# Full case x norm matrix of applicability statuses
+SELECT ?case ?norm ?status WHERE {
+  ?o normad:forFactPattern ?case . ?e normad:inOrdering ?o ; normad:evaluatedNorm ?norm ; normad:hasApplicabilityStatus ?s .
+  BIND(STRAFTER(STR(?s), "#") AS ?status)
+} ORDER BY ?case ?norm

@@ -1,0 +1,7 @@
+# Gaps: contract content NORMA-O 2.0 cannot represent, and how it was approximated
+SELECT ?gap ?section ?category ?missing ?representedAs WHERE {
+  ?gap a gap:Gap ; gap:category ?category ; gap:missing ?missing .
+  OPTIONAL { ?gap gap:section ?section }
+  OPTIONAL { SELECT ?gap (GROUP_CONCAT(DISTINCT STRAFTER(STR(?r), "#"); separator=", ") AS ?representedAs)
+             WHERE { ?gap gap:representedAs ?r } GROUP BY ?gap }
+} ORDER BY ?category ?gap

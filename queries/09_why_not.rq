@@ -1,0 +1,10 @@
+# Why a norm does not apply in a case (--bind case=L07_withdraw_8m): status and the applicable norms that defeat it
+SELECT ?norm ?status ?defeatedBy WHERE {
+  ?o normad:forFactPattern ?case . ?e normad:inOrdering ?o ; normad:evaluatedNorm ?norm ; normad:hasApplicabilityStatus ?s .
+  FILTER(?s != normad:Applicable)
+  BIND(STRAFTER(STR(?s), "#") AS ?status)
+  OPTIONAL { SELECT ?o ?norm (GROUP_CONCAT(DISTINCT STRAFTER(STR(?by), "#"); separator=", ") AS ?defeatedBy) WHERE {
+      { ?by norma:isExceptionTo ?norm } UNION { ?d norma:defeatingNorm ?by ; norma:defeatedNorm ?norm }
+      ?e2 normad:inOrdering ?o ; normad:evaluatedNorm ?by ; normad:hasApplicabilityStatus normad:Applicable .
+    } GROUP BY ?o ?norm }
+} ORDER BY ?status ?norm

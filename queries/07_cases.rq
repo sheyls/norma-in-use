@@ -1,0 +1,6 @@
+# Cases (fact patterns) and the brute facts each one holds
+SELECT ?case ?label ?facts WHERE {
+  ?case a norma:FactPattern ; rdfs:label ?label .
+  OPTIONAL { SELECT ?case (GROUP_CONCAT(DISTINCT STRAFTER(STR(?c), "#"); separator=", ") AS ?facts)
+             WHERE { ?case norma:holdsTrigger ?te . ?c norma:hasTrigger ?te } GROUP BY ?case }
+} ORDER BY ?case

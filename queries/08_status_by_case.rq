@@ -1,0 +1,6 @@
+# How many norms are Applicable / Defeated / NotActivated / Undecided / Invalid in each case
+SELECT ?case (SUM(IF(?s = normad:Applicable, 1, 0)) AS ?applicable) (SUM(IF(?s = normad:Defeated, 1, 0)) AS ?defeated)
+       (SUM(IF(?s = normad:NotActivated, 1, 0)) AS ?notActivated) (SUM(IF(?s = normad:Undecided, 1, 0)) AS ?undecided)
+       (SUM(IF(?s = normad:Invalid, 1, 0)) AS ?invalid) WHERE {
+  ?o normad:forFactPattern ?case . ?e normad:inOrdering ?o ; normad:hasApplicabilityStatus ?s .
+} GROUP BY ?case ORDER BY ?case

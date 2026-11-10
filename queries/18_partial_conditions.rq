@@ -1,0 +1,8 @@
+# Annotation check: cases that hold only SOME of the triggers of a condition branch (the condition half-holds)
+SELECT ?case ?condition ?branch ?held ?missing WHERE {
+  ?case norma:holdsTrigger ?t1 . ?condition norma:hasTrigger ?t1, ?t2 .
+  ?t1 norma:hasOutcome ?o . ?t2 norma:hasOutcome ?o .
+  FILTER NOT EXISTS { ?case norma:holdsTrigger ?t2 }
+  BIND(STRAFTER(STR(?o), "#") AS ?branch)
+  BIND(STRAFTER(STR(?t1), "#") AS ?held) BIND(STRAFTER(STR(?t2), "#") AS ?missing)
+} ORDER BY ?case ?condition

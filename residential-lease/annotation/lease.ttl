@@ -1,0 +1,883 @@
+# Residential lease agreement (Community of Madrid, 10 June 2026),
+# anonymised and translated: names, identity documents, bank details,
+# addresses and amounts changed. Text: ../contract/lease-en-translation.txt (the
+# Spanish original is authoritative).
+#
+# Annotated in NORMA-O 2.0. Scope: the CONTRACT ONLY. The Spanish Urban
+# Leases Act (LAU) is outside the graph; clauses that clash with mandatory
+# provisions of the LAU are annotated as written and listed in the GAPS section under
+# "conflict with mandatory law". The one exception is variant-lau-2026.ttl
+# (art. 11.3 LAU as worded by Royal Decree-Law 29/2026).
+#
+# Conventions:
+# - The surface operator is kept ("shall hand over the keys" is an Obligation).
+# - Termination is ONE institutional fact, FCT_terminated, established by
+#   expiry, withdrawal and notice; it withdraws the continuing norms and
+#   activates the winding-up duties.
+# - Expiry ends the agreement unless it is extended; the compulsory extension
+#   falls if the tenant gives notice of non-renewal: an exception to an
+#   exception.
+# - The exercise of a power (to withdraw, to give notice, to sue) is a brute
+#   fact of the case.
+# - Both tenants play the same role; duties are addressed to the role.
+# - Implied provisions carry norma:hasReviewStatus norma:PendingReview.
+
+@prefix norma: <https://w3id.org/def/norma-o#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix :      <https://example.org/lease-en#> .
+
+<https://example.org/lease-en> a owl:Ontology ;
+    rdfs:label "Residential lease agreement (Spain, 2026, anonymised, English translation) in NORMA-O 2.0"@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    rdfs:seeAlso <https://github.com/sheyls/NORMA-O> ;    # the ontology this annotation is written in
+    owl:imports <https://w3id.org/def/norma-o/2.0> .
+
+# ===================================================================== roles
+:landlord a norma:LegalRole ; rdfs:label "Landlord"@en .
+:tenant   a norma:LegalRole ; rdfs:label "Tenant"@en .
+
+# =================================================================== actions
+:a_use            a norma:LegalAction ; rdfs:label "use the dwelling and the furniture as a permanent residence"@en .
+:a_other_use      a norma:LegalAction ; rdfs:label "use the property for anything other than a dwelling (e.g. professional offices)"@en .
+:a_pay_rent       a norma:LegalAction ; rdfs:label "pay the monthly rent into the landlord's account"@en .
+:a_update_rent    a norma:LegalAction ; rdfs:label "update the rent by the IRAV index (art. 18 LAU)"@en .
+:a_sue            a norma:LegalAction ; rdfs:label "file a claim for termination for non-payment, without notice or demand"@en .
+:a_compensate     a norma:LegalAction ; rdfs:label "pay the proportional part of one month's rent for the months remaining to complete one year"@en .
+:a_hand_keys      a norma:LegalAction ; rdfs:label "hand over the keys and possession of the flat, vacated of persons"@en .
+:a_care           a norma:LegalAction ; rdfs:label "make proper use of the household appliances"@en .
+:a_repair_appl    a norma:LegalAction ; rdfs:label "repair or replace an appliance broken through use with one of the same characteristics"@en .
+:a_sublet         a norma:LegalAction ; rdfs:label "sublet the smallest room"@en .
+:a_inform_sublet  a norma:LegalAction ; rdfs:label "disclose the subtenant in writing (identification, latest payslip and employment contract)"@en .
+:a_hazardous      a norma:LegalAction ; rdfs:label "keep flammable, harmful or dangerous materials"@en .
+:a_signs          a norma:LegalAction ; rdfs:label "install signs or advertisements"@en .
+:a_pet_notice     a norma:LegalAction ; rdfs:label "notify the keeping of a domestic animal in writing"@en .
+:a_pet_damage     a norma:LegalAction ; rdfs:label "bear the damage caused by the animal"@en .
+:a_works          a norma:LegalAction ; rdfs:label "carry out works in the dwelling"@en .
+:a_minor_repairs  a norma:LegalAction ; rdfs:label "bear the minor repairs due to improper use"@en .
+:a_return_dwelling a norma:LegalAction ; rdfs:label "return the dwelling in the same habitable condition"@en .
+:a_pay_damage     a norma:LegalAction ; rdfs:label "pay in cash for the damage to the dwelling, furniture or services"@en .
+:a_recover_deposit a norma:LegalAction ; rdfs:label "recover the damage from the deposit"@en .
+:a_pay_deposit    a norma:LegalAction ; rdfs:label "pay the deposit of one month's rent"@en .
+:a_refund_deposit a norma:LegalAction ; rdfs:label "return the deposit"@en .
+:a_offset_deposit a norma:LegalAction ; rdfs:label "substitute the deposit for the monthly rent"@en .
+:a_pay_damages    a norma:LegalAction ; rdfs:label "compensate the damage caused by the occupants of the dwelling"@en .
+:a_report         a norma:LegalAction ; rdfs:label "report immediately and reliably any incident affecting the property"@en .
+:a_pay_costs      a norma:LegalAction ; rdfs:label "pay the court costs, lawyer's and court agent's fees, tax assessment and other costs"@en .
+:a_pay_utilities  a norma:LegalAction ; rdfs:label "pay the utilities, refuse charge, electricity, gas and internet"@en .
+:a_pay_community  a norma:LegalAction ; rdfs:label "pay the homeowners' association fees (water included)"@en .
+
+# ============================================== recitals and clause 1
+:FCT_R1_ownership a norma:ConstitutiveRule ; norma:deonticId "FCT_R1_ownership" ; norma:fromArticle "Recital I" ;
+    norma:factStatement "Ms Alice Doe is the owner of the dwelling." .
+:FCT_R2_habitability a norma:ConstitutiveRule ; norma:deonticId "FCT_R2_habitability" ; norma:fromArticle "Recital II" ;
+    norma:factStatement "The landlord expressly states that the dwelling meets all the conditions and requirements necessary to be used as the tenant party's permanent residence." .
+:FCT_R3_use a norma:ConstitutiveRule ; norma:deonticId "FCT_R3_use" ; norma:fromArticle "Recital III" ;
+    norma:factStatement "The lease is agreed for the use of the dwelling by the tenant party as permanent residence." .
+:FCT_1_governing a norma:ConstitutiveRule ; norma:deonticId "FCT_1_governing" ; norma:fromArticle "1" ;
+    norma:factStatement "The agreement is made in accordance with Law 29/1994 on Urban Leases (as amended) and with what is agreed; the Civil Code applies on a supplementary basis." .
+
+# ================================================================ clause 2
+:FCT_2_object a norma:ConstitutiveRule ; norma:deonticId "FCT_2_object" ; norma:fromArticle "2" ;
+    norma:factStatement "The object of the lease is the dwelling together with the furniture and household goods of the inventory signed by both parties, which forms an integral part of the agreement (a sofa, three beds with mattresses, a desk and four chairs)." .
+:P_2_use a norma:Permission ; norma:deonticId "P_2_use" ; norma:fromArticle "2" ;
+    norma:normStatement "The tenant party may use the leased dwelling and furniture as a dwelling (implied by the lease)." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_use ;
+    norma:hasReviewStatus norma:PendingReview ; rdfs:comment "implied"@en .
+:F_7_other_use a norma:Prohibition ; norma:deonticId "F_7_other_use" ; norma:fromArticle "2, 7" ;
+    norma:normStatement "The property shall be used solely as a dwelling, and no offices for the exercise of liberal or other professions may be established in it." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_other_use ;
+    rdfs:comment "Clauses 2 ('exclusively as a dwelling') and 7 ('solely as a dwelling') state the same prohibition: one norm, one action."@en .
+
+# ================================================================ clause 3
+:O_3_rent a norma:Obligation ; norma:deonticId "O_3_rent" ; norma:fromArticle "3" ;
+    norma:normStatement "The tenant party shall pay a rent of 11,400 euros per year, that is, 950 euros per month, within the first six days of each month, into the landlord's account." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_rent ;
+    norma:deadline "within the first six days of each month" .
+:P_3_sue a norma:Permission ; norma:deonticId "P_3_sue" ; norma:fromArticle "3, 10" ;
+    norma:normStatement "Once the payment period has elapsed without payment, the landlord may file a claim for termination of the agreement for non-payment, without any notice or demand." ;
+    norma:hasLegalAgent :landlord ; norma:hasCounterparty :tenant ; norma:hasLegalAction :a_sue .
+:P_3_update a norma:Permission ; norma:deonticId "P_3_update" ; norma:fromArticle "3" ;
+    norma:normStatement "During the first three years, if the agreement is extended, the rent shall be updated annually in accordance with the legal reference index (IRAV) and on the terms of article 18 LAU." ;
+    norma:hasLegalAgent :landlord ; norma:hasCounterparty :tenant ; norma:hasLegalAction :a_update_rent ;
+    rdfs:comment "Read as the landlord's faculty to update the rent on each anniversary; the IRAV calculation is not represented (gaps)."@en .
+:FCT_3_after3 a norma:ConstitutiveRule ; norma:deonticId "FCT_3_after3" ; norma:fromArticle "3" ;
+    norma:factStatement "After the first three years, if the agreement is extended, both its term and the rent shall be updated by agreement between the parties." .
+
+# ================================================================ clause 4
+:FCT_4_term a norma:ConstitutiveRule ; norma:deonticId "FCT_4_term" ; norma:fromArticle "4" ;
+    norma:factStatement "The term of the agreement is one year, from 1 July 2026 to 1 July 2027." .
+:FCT_4_expiry a norma:ConstitutiveRule ; norma:deonticId "FCT_4_expiry" ; norma:fromArticle "4" ;
+    norma:factStatement "When the expiry date of the agreement or of an extension arrives, the agreement ends (unless it is extended)." ;
+    rdfs:comment "Implied by 'term'; the clause presupposes it when it regulates the extension and the handing over of the keys 'in the event that this agreement is not extended'."@en ;
+    norma:establishesTrigger :te_term_expiry .
+:FCT_4_renewal a norma:ConstitutiveRule ; norma:deonticId "FCT_4_renewal" ; norma:fromArticle "4" ;
+    norma:factStatement "On expiry, the agreement shall be compulsorily extended for annual periods until the lease reaches a minimum duration of five years." ;
+    norma:isExceptionTo :FCT_4_expiry .
+:FCT_4_no_renewal a norma:ConstitutiveRule ; norma:deonticId "FCT_4_no_renewal" ; norma:fromArticle "4" ;
+    norma:factStatement "There is no extension if the tenant notifies the landlord of her wish not to renew, at least thirty days before the termination date of the agreement or of any of its extensions." ;
+    rdfs:comment "A notice given less than thirty days ahead also prevents the extension, but activates the penalty FCT_4_penalty."@en ;
+    norma:isExceptionTo :FCT_4_renewal .                 # an exception to an exception
+:FCT_4_penalty a norma:ConstitutiveRule ; norma:deonticId "FCT_4_penalty" ; norma:fromArticle "4" ;
+    norma:factStatement "Failure to observe the thirty-day notice period is penalised by the non-return of one month of the deposit." ;
+    rdfs:comment "The deposit is one month's rent, so the penalty withdraws the whole duty to return it."@en ;
+    norma:isExceptionTo :O_10_refund .
+:FCT_4_minimum a norma:ConstitutiveRule ; norma:deonticId "FCT_4_minimum" ; norma:fromArticle "4" ;
+    norma:factStatement "The minimum legal period of performance of the lease is set at six months." .
+:FCT_4_withdrawal a norma:ConstitutiveRule ; norma:deonticId "FCT_4_withdrawal" ; norma:fromArticle "4" ;
+    norma:factStatement "After six months, the tenant may withdraw from the agreement; once she withdraws, the agreement ends." ;
+    norma:hasReviewStatus norma:PendingReview ;
+    rdfs:comment "Implied: the agreement regulates compensation for withdrawal and sets a six-month minimum, but states neither the withdrawal nor its notice period (both in art. 11 LAU, outside the graph)."@en ;
+    norma:establishesTrigger :te_term_withdrawal .
+:O_4_compensation a norma:Obligation ; norma:deonticId "O_4_compensation" ; norma:fromArticle "4" ;
+    norma:normStatement "Withdrawal by the tenant before one year has elapsed shall give rise to compensation equivalent to the proportional part of one month's rent in relation to the months remaining to complete one year." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_compensate .
+:O_4_keys a norma:Obligation ; norma:deonticId "O_4_keys" ; norma:fromArticle "4" ;
+    norma:normStatement "In the event that the agreement is not extended, the tenant shall hand over the keys, and with them possession of the flat, to the landlord, vacated of persons." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_hand_keys .
+
+# ================================================================ clause 5
+:FCT_5_notice_T a norma:ConstitutiveRule ; norma:deonticId "FCT_5_notice_T" ; norma:fromArticle "5" ;
+    norma:factStatement "The tenant may, thirty days before the end date of each extension, give notice of termination of the agreement, reliably and in writing." ;
+    norma:isExceptionTo :FCT_4_renewal .
+:FCT_5_notice_L a norma:ConstitutiveRule ; norma:deonticId "FCT_5_notice_L" ; norma:fromArticle "5" ;
+    norma:factStatement "The landlord may, thirty days before the end date of each extension, give notice of termination of the agreement, reliably and in writing." ;
+    rdfs:comment "Clause 5's 'parties' are split by role: for the landlord the clause clashes with the compulsory extension of art. 9.1 LAU (gaps)."@en ;
+    norma:isExceptionTo :FCT_4_renewal .
+
+# ================================================================ clause 6
+:FCT_6_handover a norma:ConstitutiveRule ; norma:deonticId "FCT_6_handover" ; norma:fromArticle "6" ;
+    norma:factStatement "The dwelling is made available to the tenant on 1 July 2026 in a good state of repair, with the water and electricity installations working." .
+:FCT_6_exemption a norma:ConstitutiveRule ; norma:deonticId "FCT_6_exemption" ; norma:fromArticle "6" ;
+    norma:factStatement "The landlord is exempt from all liability for lack of the water and electricity supplies." .
+:O_6_care a norma:Obligation ; norma:deonticId "O_6_care" ; norma:fromArticle "6" ;
+    norma:normStatement "The tenant party undertakes to make proper use of the household appliances." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_care .
+:O_6_repair a norma:Obligation ; norma:deonticId "O_6_repair" ; norma:fromArticle "6" ;
+    norma:normStatement "Should the household appliances break down through use, the tenant party shall repair them or replace them with others of the same characteristics." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_repair_appl .
+
+# ================================================================ clause 7
+:P_7_sublet a norma:Permission ; norma:deonticId "P_7_sublet" ; norma:fromArticle "7" ;
+    norma:normStatement "The tenant party may sublet the smallest room (implied by 'if the smallest room is sublet')." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_sublet ;
+    norma:hasReviewStatus norma:PendingReview ; rdfs:comment "implied; read as the landlord's consent given in advance"@en .
+:O_7_inform_sublet a norma:Obligation ; norma:deonticId "O_7_inform_sublet" ; norma:fromArticle "7" ;
+    norma:normStatement "If the smallest room is sublet, the tenant party shall keep the landlord informed, disclosing in writing the person who is going to live in the dwelling, with their identification details, latest payslip and employment contract." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_inform_sublet .
+:F_7_hazardous a norma:Prohibition ; norma:deonticId "F_7_hazardous" ; norma:fromArticle "7" ;
+    norma:normStatement "Keeping flammable materials, or materials harmful or dangerous to persons or to the leased flat, is prohibited." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_hazardous .
+:F_7_signs a norma:Prohibition ; norma:deonticId "F_7_signs" ; norma:fromArticle "7" ;
+    norma:normStatement "Installing signs and advertisements without the landlord's authorisation is prohibited." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_signs .
+:FCT_7_signs_auth a norma:ConstitutiveRule ; norma:deonticId "FCT_7_signs_auth" ; norma:fromArticle "7" ;
+    norma:factStatement "With the landlord's authorisation, installing signs and advertisements is not prohibited." ;
+    norma:isExceptionTo :F_7_signs .
+:O_7_pet_notice a norma:Obligation ; norma:deonticId "O_7_pet_notice" ; norma:fromArticle "7" ;
+    norma:normStatement "Keeping domestic animals must be notified in writing to the landlord." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pet_notice .
+:O_7_pet_damage a norma:Obligation ; norma:deonticId "O_7_pet_damage" ; norma:fromArticle "7" ;
+    norma:normStatement "The tenant party is liable for any damage arising from the animal's use of the dwelling." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pet_damage .
+
+# ================================================================ clause 8
+:F_8_works a norma:Prohibition ; norma:deonticId "F_8_works" ; norma:fromArticle "8" ;
+    norma:normStatement "Carrying out works is prohibited unless they are authorised in writing by the landlord." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_works .
+:FCT_8_works_auth a norma:ConstitutiveRule ; norma:deonticId "FCT_8_works_auth" ; norma:fromArticle "8" ;
+    norma:factStatement "With the landlord's written authorisation, carrying out works is not prohibited." ;
+    norma:isExceptionTo :F_8_works .
+:FCT_8_improvements a norma:ConstitutiveRule ; norma:deonticId "FCT_8_improvements" ; norma:fromArticle "8" ;
+    norma:factStatement "Alterations and improvements made with prior authorisation revert to the landlord at the end of the agreement, without any compensation being claimable from her." .
+:O_8_minor_repairs a norma:Obligation ; norma:deonticId "O_8_minor_repairs" ; norma:fromArticle "8" ;
+    norma:normStatement "Minor repairs (breakdowns, breakages or damage) that are shown to be due to improper use of the installations shall be borne by the tenant party." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_minor_repairs .
+
+# ================================================================ clause 9
+:O_9_return a norma:Obligation ; norma:deonticId "O_9_return" ; norma:fromArticle "9" ;
+    norma:normStatement "The tenant party, having received the dwelling in habitable condition, undertakes to return it in the same condition on the day the agreement expires." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_return_dwelling .
+:O_9_damage a norma:Obligation ; norma:deonticId "O_9_damage" ; norma:fromArticle "9" ;
+    norma:normStatement "Failing that, the tenant party shall pay in cash for the damage caused to the dwelling, the furniture or its services." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_damage .
+:P_9_deposit a norma:Permission ; norma:deonticId "P_9_deposit" ; norma:fromArticle "9" ;
+    norma:normStatement "The landlord is authorised, in the first place, to recover the damage from the deposit lodged." ;
+    norma:hasLegalAgent :landlord ; norma:hasCounterparty :tenant ; norma:hasLegalAction :a_recover_deposit .
+
+# ================================================================ clause 10
+:O_10_deposit a norma:Obligation ; norma:deonticId "O_10_deposit" ; norma:fromArticle "10" ;
+    norma:normStatement "The tenant party shall pay the landlord 950 euros, equivalent to one month's rent, to constitute the compulsory deposit established by law." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_deposit .
+:O_10_refund a norma:Obligation ; norma:deonticId "O_10_refund" ; norma:fromArticle "10" ;
+    norma:normStatement "The deposit shall be returned on termination of the agreement once the tenant party has fulfilled, to the landlord's satisfaction, the stipulations arising from it." ;
+    norma:hasLegalAgent :landlord ; norma:hasCounterparty :tenant ; norma:hasLegalAction :a_refund_deposit .
+:F_10_offset a norma:Prohibition ; norma:deonticId "F_10_offset" ; norma:fromArticle "10" ;
+    norma:normStatement "In no case may the amount of the deposit substitute for the monthly rent." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_offset_deposit .
+:FCT_10_late a norma:ConstitutiveRule ; norma:deonticId "FCT_10_late" ; norma:fromArticle "10" ;
+    norma:factStatement "Any delay in paying the rent shall be considered a breach and grounds for eviction." ;
+    norma:establishesTrigger :te_breach_sue, :te_breach_costs .
+
+# ================================================================ clause 11
+:FCT_11_occupants a norma:ConstitutiveRule ; norma:deonticId "FCT_11_occupants" ; norma:fromArticle "11" ;
+    norma:factStatement "The tenant party is responsible not only for its own acts but also for those committed by the occupants of the dwelling." ;
+    norma:establishesTrigger :te_damage_attributed .
+:O_11_damages a norma:Obligation ; norma:deonticId "O_11_damages" ; norma:fromArticle "11" ;
+    norma:normStatement "The tenant party is responsible for any compensation for damages caused by its own acts and by those of the occupants of the dwelling." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_damages .
+:O_11_report a norma:Obligation ; norma:deonticId "O_11_report" ; norma:fromArticle "11" ;
+    norma:normStatement "The tenant party undertakes to report immediately and reliably to the landlord any incident affecting the property." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_report ;
+    norma:deadline "immediately" .
+
+# ================================================================ clause 12
+:O_12_costs a norma:Obligation ; norma:deonticId "O_12_costs" ; norma:fromArticle "12" ;
+    norma:normStatement "Breach of the agreement by the tenant party shall oblige it to pay all court costs, lawyer's and court agent's fees, the tax assessment of the agreement and any other costs the landlord may incur to enforce it or to evict." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_costs .
+
+# ================================================================ clauses 13 and 14
+:O_13_utilities a norma:Obligation ; norma:deonticId "O_13_utilities" ; norma:fromArticle "13" ;
+    norma:normStatement "The tenant party undertakes to pay for the utilities, as well as the refuse collection charge, electricity, gas and internet." ;
+    norma:hasLegalAgent :tenant ; norma:hasCounterparty :landlord ; norma:hasLegalAction :a_pay_utilities .
+:O_13_community a norma:Obligation ; norma:deonticId "O_13_community" ; norma:fromArticle "13" ;
+    norma:normStatement "The homeowners' association fees (which include water) are borne by the landlord." ;
+    norma:hasLegalAgent :landlord ; norma:hasCounterparty :tenant ; norma:hasLegalAction :a_pay_community .
+:FCT_14_forum a norma:ConstitutiveRule ; norma:deonticId "FCT_14_forum" ; norma:fromArticle "14" ;
+    norma:factStatement "The parties submit, as required by law, to the jurisdiction of the courts of the place where the dwelling is located, waiving the tenant party's own forum." .
+
+# ============================================ termination and what it withdraws
+:FCT_terminated a norma:ConstitutiveRule ; norma:deonticId "FCT_terminated" ; norma:fromArticle "4, 5, 9, 10" ;
+    norma:factStatement "The agreement has ended: the continuing obligations cease and the winding-up obligations arise (handing over the keys and the dwelling, returning the deposit)." ;
+    rdfs:comment "The agreement has no survival clause; the norms governing the continued use of the dwelling are withdrawn, and those on liability for damage and costs remain."@en ;
+    norma:isExceptionTo :P_2_use, :F_7_other_use, :O_3_rent, :P_3_update, :O_6_care,
+        :P_7_sublet, :O_7_inform_sublet, :F_7_hazardous, :F_7_signs, :O_7_pet_notice,
+        :F_8_works, :F_10_offset, :O_13_utilities, :O_13_community ;
+    norma:establishesTrigger :te_keys, :te_return_dwelling, :te_refund_deposit .
+
+# ============================================== conditions and triggers
+# brute facts (a case holds them)
+:c_unpaid a norma:LegalCondition ; norma:conditionStatement "The first six days of the month have passed without the tenant paying the rent." ;
+    norma:hasTrigger :te_unpaid_sue, :te_unpaid_late .
+:te_unpaid_sue  a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :P_3_sue .
+:te_unpaid_late a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_10_late .
+
+:c_anniversary a norma:LegalCondition ; norma:conditionStatement "A year of the agreement is completed, the agreement has been extended and three years have not yet passed." ; norma:hasTrigger :te_anniversary .
+:te_anniversary a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :P_3_update .
+
+:c_expiry a norma:LegalCondition ; norma:conditionStatement "The expiry date of the agreement or of one of its extensions arrives." ; norma:hasTrigger :te_expiry .
+:te_expiry a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_expiry .
+:c_under5 a norma:LegalCondition ; norma:conditionStatement "On the expiry date, the lease has not reached a duration of five years." ; norma:hasTrigger :te_under5 .
+:te_under5 a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_renewal .
+
+:c_no_renewal a norma:LegalCondition ; norma:conditionStatement "The tenant has notified the landlord of her wish not to renew, at least thirty days before expiry." ; norma:hasTrigger :te_no_renewal .
+:te_no_renewal a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_no_renewal .
+:c_no_renewal_late a norma:LegalCondition ; norma:conditionStatement "The tenant has notified her wish not to renew less than thirty days before expiry." ;
+    norma:hasTrigger :te_no_renewal_late, :te_penalty .
+:te_no_renewal_late a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_no_renewal .
+:te_penalty a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_penalty .
+
+:c_withdrawal a norma:LegalCondition ; norma:conditionStatement "After at least six months, the tenant gives notice that she withdraws from the agreement." ; norma:hasTrigger :te_withdrawal .
+:te_withdrawal a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_4_withdrawal .
+:c_withdrawal_1y a norma:LegalCondition ; norma:conditionStatement "The withdrawal takes place before one year of the agreement has elapsed." ; norma:hasTrigger :te_withdrawal_1y .
+:te_withdrawal_1y a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_4_compensation .
+
+:c_notice_T a norma:LegalCondition ; norma:conditionStatement "The tenant has given reliable written notice of termination thirty days before the end of an extension." ; norma:hasTrigger :te_notice_T .
+:te_notice_T a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_5_notice_T .
+:c_notice_L a norma:LegalCondition ; norma:conditionStatement "The landlord has given reliable written notice of termination thirty days before the end of an extension." ; norma:hasTrigger :te_notice_L .
+:te_notice_L a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_5_notice_L .
+
+:c_no_supply a norma:LegalCondition ; norma:conditionStatement "The water or electricity supply fails." ; norma:hasTrigger :te_no_supply .
+:te_no_supply a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_6_exemption .
+:c_appliance a norma:LegalCondition ; norma:conditionStatement "A household appliance has broken down through use." ; norma:hasTrigger :te_appliance .
+:te_appliance a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_6_repair .
+
+:c_sublet a norma:LegalCondition ; norma:conditionStatement "The tenant sublets the smallest room." ; norma:hasTrigger :te_sublet_inform .
+:te_sublet_inform a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_7_inform_sublet .
+:c_signs_auth a norma:LegalCondition ; norma:conditionStatement "The landlord has authorised a sign or advertisement." ; norma:hasTrigger :te_signs_auth .
+:te_signs_auth a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_7_signs_auth .
+:c_pet a norma:LegalCondition ; norma:conditionStatement "The tenant keeps a domestic animal in the dwelling." ; norma:hasTrigger :te_pet .
+:te_pet a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_7_pet_notice .
+:c_pet_damage a norma:LegalCondition ; norma:conditionStatement "The domestic animal has caused damage to the dwelling." ; norma:hasTrigger :te_pet_damage .
+:te_pet_damage a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_7_pet_damage .
+
+:c_works_auth a norma:LegalCondition ; norma:conditionStatement "The landlord has authorised works in writing." ; norma:hasTrigger :te_works_auth .
+:te_works_auth a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_8_works_auth .
+:c_improvements_end a norma:LegalCondition ; norma:conditionStatement "The agreement has ended and the tenant had made authorised alterations or improvements." ; norma:hasTrigger :te_improvements_end .
+:te_improvements_end a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_8_improvements .
+:c_misuse a norma:LegalCondition ; norma:conditionStatement "A minor breakdown, breakage or damage is shown to be due to improper use of the installations." ; norma:hasTrigger :te_misuse .
+:te_misuse a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_8_minor_repairs .
+
+:c_damage_end a norma:LegalCondition ; norma:conditionStatement "On termination, the dwelling, the furniture or its services show damage caused during the lease." ;
+    norma:hasTrigger :te_damage_pay, :te_damage_deposit .
+:te_damage_pay a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_9_damage .
+:te_damage_deposit a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :P_9_deposit .
+
+:c_signature a norma:LegalCondition ; norma:conditionStatement "The agreement is signed." ; norma:hasTrigger :te_signature .
+:te_signature a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_10_deposit .
+
+:c_occupant_damage a norma:LegalCondition ; norma:conditionStatement "An occupant of the dwelling (not the tenant) has caused damage to the landlord." ; norma:hasTrigger :te_occupant_damage .
+:te_occupant_damage a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_11_occupants .
+:c_own_damage a norma:LegalCondition ; norma:conditionStatement "The tenant has caused damage to the landlord." ; norma:hasTrigger :te_own_damage .
+:te_own_damage a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_11_damages .
+:c_incident a norma:LegalCondition ; norma:conditionStatement "An incident affecting the property occurs." ; norma:hasTrigger :te_incident .
+:te_incident a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_11_report .
+
+:c_breach a norma:LegalCondition ; norma:conditionStatement "The tenant has breached the agreement." ; norma:hasTrigger :te_breach .
+:te_breach a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_12_costs .
+
+# institutional facts: established by rules, NEVER held by a case
+:c_terminated a norma:LegalCondition ; norma:conditionStatement "The agreement has ended." ;
+    norma:hasTrigger :te_term_expiry, :te_term_withdrawal, :te_keys, :te_return_dwelling, :te_refund_deposit .
+:te_term_expiry     a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_terminated .
+:te_term_withdrawal a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :FCT_terminated .
+:te_keys            a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_4_keys .
+:te_return_dwelling a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_9_return .
+:te_refund_deposit  a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_10_refund .
+
+:c_breach_late a norma:LegalCondition ; norma:conditionStatement "The tenant is in breach because of a delay in paying the rent (clause 10)." ;
+    norma:hasTrigger :te_breach_sue, :te_breach_costs .
+:te_breach_sue   a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :P_3_sue .
+:te_breach_costs a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_12_costs .
+
+:c_damage_attributed a norma:LegalCondition ; norma:conditionStatement "The tenant answers for damage caused by an occupant (clause 11)." ; norma:hasTrigger :te_damage_attributed .
+:te_damage_attributed a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :O_11_damages .
+
+# ══════════════════════════════════════════════════════════════════════════
+# CASES: described situations (brute facts and who plays which role)
+# ══════════════════════════════════════════════════════════════════════════
+# Described cases for the residential lease. Each case holds BRUTE facts only
+# (and who plays which role); "the agreement has ended", "the tenant is in
+# breach for late payment" and "the tenant answers for an occupant's damage"
+# are institutional facts that the derivation establishes.
+@prefix norma: <https://w3id.org/def/norma-o#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix :      <https://example.org/lease-en#> .
+
+:alice_doe a norma:LegalParty ; rdfs:label "Alice Doe (fictitious)"@en .
+:carol_roe a norma:LegalParty ; rdfs:label "Carol Roe (fictitious)"@en .
+:erin_stiles a norma:LegalParty ; rdfs:label "Erin Stiles (fictitious)"@en .
+:RA_L  a norma:RoleAssignment ; norma:hasAssignedParty :alice_doe ; norma:hasAssignedRole :landlord .
+:RA_T1 a norma:RoleAssignment ; norma:hasAssignedParty :carol_roe ; norma:hasAssignedRole :tenant .
+:RA_T2 a norma:RoleAssignment ; norma:hasAssignedParty :erin_stiles ; norma:hasAssignedRole :tenant .
+
+:L01_ordinary a norma:FactPattern ; rdfs:label "L01 signature and ordinary life of the lease"@en ;
+    norma:holdsTrigger :te_signature ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L02_late_rent a norma:FactPattern ; rdfs:label "L02 the rent is not paid within the first six days"@en ;
+    norma:holdsTrigger :te_signature, :te_unpaid_sue, :te_unpaid_late ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L03_extension a norma:FactPattern ; rdfs:label "L03 the first year expires and nobody gives notice"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry, :te_under5 ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L04_no_renewal a norma:FactPattern ; rdfs:label "L04 the tenants give 30 days' notice of non-renewal"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry, :te_under5, :te_no_renewal ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L05_late_notice a norma:FactPattern ; rdfs:label "L05 they give notice of non-renewal only 15 days ahead"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry, :te_under5, :te_no_renewal_late, :te_penalty ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L06_landlord_notice a norma:FactPattern ; rdfs:label "L06 the landlord gives notice at the end of the first year (clause 5)"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry, :te_under5, :te_notice_L ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L07_withdraw_8m a norma:FactPattern ; rdfs:label "L07 the tenants withdraw in the eighth month"@en ;
+    norma:holdsTrigger :te_signature, :te_withdrawal, :te_withdrawal_1y, :te_withdrawal_lau ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L08_withdraw_14m a norma:FactPattern ; rdfs:label "L08 they withdraw in the fourteenth month (during an extension)"@en ;
+    norma:holdsTrigger :te_signature, :te_withdrawal, :te_withdrawal_lau ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L09_sublet a norma:FactPattern ; rdfs:label "L09 they sublet the small room; the subtenant causes damage"@en ;
+    norma:holdsTrigger :te_signature, :te_sublet_inform, :te_occupant_damage, :te_incident ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L10_works a norma:FactPattern ; rdfs:label "L10 works with written authorisation"@en ;
+    norma:holdsTrigger :te_signature, :te_works_auth ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L11_end_damage a norma:FactPattern ; rdfs:label "L11 no renewal; the dwelling is returned with damage and with authorised improvements"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry, :te_under5, :te_no_renewal, :te_damage_pay, :te_damage_deposit, :te_improvements_end ;
+    norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L12_pet a norma:FactPattern ; rdfs:label "L12 they keep a dog that damages a door"@en ;
+    norma:holdsTrigger :te_signature, :te_pet, :te_pet_damage ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L13_no_supply a norma:FactPattern ; rdfs:label "L13 the water supply fails for a week"@en ;
+    norma:holdsTrigger :te_signature, :te_no_supply ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+:L14_five_years a norma:FactPattern ; rdfs:label "L14 the fifth year expires and nobody gives notice"@en ;
+    norma:holdsTrigger :te_signature, :te_expiry ; norma:holdsRoleAssignment :RA_L, :RA_T1, :RA_T2 .
+
+# ══════════════════════════════════════════════════════════════════════════
+# GAPS: what NORMA-O holds only as a fact, or as written although mandatory law corrects it
+# ══════════════════════════════════════════════════════════════════════════
+@prefix gap:  <https://example.org/norma-gap#> .
+@prefix :     <https://example.org/lease-en#> .
+
+# Content of the agreement that NORMA-O 2.0 represents only as a fact, or that
+# the graph represents as written although a mandatory provision of the Urban
+# Leases Act (LAU, outside the graph) corrects it. One entry per gap.
+
+# ------------------------------------------- conflict with mandatory law
+:g01 a gap:Gap ; gap:section "5" ; gap:category "conflict with mandatory law" ;
+    gap:representedAs :FCT_5_notice_L ;
+    gap:missing "The landlord's notice at the end of each annual extension clashes with the compulsory extension of art. 9.1 LAU, which only the tenant can avoid (the landlord is a natural person and the agreement reserves no need under art. 9.3). Void under art. 6 LAU; the graph, which holds only the agreement, lets it end the agreement (case L06)." .
+:g02 a gap:Gap ; gap:section "4" ; gap:category "conflict with mandatory law" ;
+    gap:representedAs :FCT_4_expiry ;
+    gap:missing "At five years the agreement does not simply end: art. 10 LAU imposes a tacit extension if neither party gives notice (four months for the landlord, two for the tenant), and Royal Decree-Law 28/2026 rewrites it from 15 November 2026. The graph, which holds only the agreement, ends it (case L14)." .
+:g03 a gap:Gap ; gap:section "6" ; gap:category "conflict with mandatory law" ;
+    gap:representedAs :FCT_6_exemption ;
+    gap:missing "Exempting the landlord from all liability for lack of supplies clashes with her duty to keep the dwelling habitable (art. 21 LAU) insofar as the failure depends on her. It is also an immunity (second order), which NORMA-O does not represent." .
+:g04 a gap:Gap ; gap:section "4" ; gap:category "conflict with mandatory law (variant)" ;
+    gap:representedAs :O_4_compensation ;
+    gap:missing "Compensation for withdrawal was valid under the former art. 11 LAU (one month's rent per remaining year, pro rata); art. 11.3 LAU as worded by RDL 29/2026 excludes it. Whether the new wording reaches an agreement of June 2026 is a question of transitional law: represented by variant-lau-2026.ttl." .
+:g05 a gap:Gap ; gap:section "12" ; gap:category "conflict with mandatory law" ;
+    gap:representedAs :O_12_costs ;
+    gap:missing "Court costs are decided by the judge (art. 394 of the Civil Procedure Act) and the costs of formalising the agreement fall on the landlord (art. 20.1 LAU); the clause puts both on the tenant. The graph applies it as written." .
+:g06 a gap:Gap ; gap:section "3" ; gap:category "conflict with mandatory law" ;
+    gap:representedAs :FCT_3_after3 ;
+    gap:missing "Setting 'the term' by agreement after three years cannot reduce the five-year minimum of art. 9.1 LAU, and rent updates remain capped by art. 18 LAU." .
+
+# ------------------------------------------------ doubtful interpretation
+:g07 a gap:Gap ; gap:section "4" ; gap:category "penalty clause" ;
+    gap:representedAs :FCT_4_penalty ;
+    gap:missing "The penalty for giving less than thirty days' notice withdraws the whole deposit (which is one month's rent). The law attaches no sanction to that notice; the validity and moderation of the penalty (art. 1154 Civil Code) are left out." .
+:g08 a gap:Gap ; gap:section "10" ; gap:category "potestative condition" ;
+    gap:representedAs :O_10_refund ;
+    gap:missing "The deposit is returned once the agreement is fulfilled 'to the landlord's satisfaction': performance is left to one party's discretion (art. 1256 Civil Code). The graph does not evaluate satisfaction; the deposit is returned on termination unless the penalty applies." .
+:g09 a gap:Gap ; gap:section "6" ; gap:category "vague standard" ;
+    gap:representedAs :O_6_repair ;
+    gap:missing "'Break down through use' does not distinguish ordinary wear (small repairs borne by the tenant, art. 21.4 LAU) from replacing an appliance at the end of its useful life, which falls on the landlord." .
+:g10 a gap:Gap ; gap:section "7" ; gap:category "implied consent" ;
+    gap:representedAs :P_7_sublet ;
+    gap:missing "A partial sublease needs the landlord's written consent (art. 8.2 LAU); the clause presupposes it for the smallest room and is read as consent given in advance. The data it requires (payslip, employment contract) raise a data-protection question that is left out." .
+:g11 a gap:Gap ; gap:section "4, 5" ; gap:category "redundancy" ;
+    gap:representedAs :FCT_5_notice_T ;
+    gap:missing "The tenant's notice of termination (clause 5) and her notice of non-renewal (clause 4) are the same faculty with the same period; the graph has them as two exceptions to the extension." .
+:g12 a gap:Gap ; gap:section "Parties" ; gap:category "plurality of tenants" ;
+    gap:missing "There are two tenants and the agreement does not say whether they are jointly or jointly and severally liable. NORMA-O addresses duties to the role, so each duty reaches both tenants in full: a joint-and-several reading that the text does not state." .
+:g13 a gap:Gap ; gap:section "4" ; gap:category "implied withdrawal" ;
+    gap:representedAs :FCT_4_withdrawal ;
+    gap:missing "The agreement sets a six-month minimum and regulates compensation, but states neither the withdrawal nor its thirty-day notice (art. 11.1 LAU)." .
+
+# ------------------------------------------------ facts only
+:g14 a gap:Gap ; gap:section "1" ; gap:category "external source" ;
+    gap:representedAs :FCT_1_governing ;
+    gap:missing "Submission to the LAU and the Civil Code refers to provisions that are not in the graph." .
+:g15 a gap:Gap ; gap:section "Recitals I and II" ; gap:category "statement of fact" ;
+    gap:representedAs :FCT_R1_ownership, :FCT_R2_habitability ;
+    gap:missing "Statements of fact by the landlord; NORMA-O has no class for them nor for the consequence of their being false." .
+:g16 a gap:Gap ; gap:section "Recital III, 2" ; gap:category "object of the agreement" ;
+    gap:representedAs :FCT_R3_use, :FCT_2_object ;
+    gap:missing "The object and the inventory delimit what the norms bear on; no action links them to the goods of the inventory." .
+:g17 a gap:Gap ; gap:section "3" ; gap:category "quantitative effect" ;
+    gap:representedAs :P_3_update ;
+    gap:missing "The calculation of the updated rent with the IRAV index is not represented." .
+:g18 a gap:Gap ; gap:section "4" ; gap:category "duration" ;
+    gap:representedAs :FCT_4_term, :FCT_4_minimum ;
+    gap:missing "Dates and periods; the conditions read them as facts of the case, they are not computed." .
+:g19 a gap:Gap ; gap:section "6" ; gap:category "statement of fact" ;
+    gap:representedAs :FCT_6_handover ;
+    gap:missing "Condition of the dwelling at handover: the benchmark of the duty to return it in the same condition, which the graph does not compare." .
+:g20 a gap:Gap ; gap:section "8" ; gap:category "property right" ;
+    gap:representedAs :FCT_8_improvements ;
+    gap:missing "Improvements reverting to the landlord without compensation is a proprietary effect, with no conduct to regulate." .
+:g21 a gap:Gap ; gap:section "14" ; gap:category "forum" ;
+    gap:representedAs :FCT_14_forum ;
+    gap:missing "Submission to the courts of the place of the dwelling; NORMA-O has no notion of jurisdiction." .
+
+# ══════════════════════════════════════════════════════════════════════════
+# SOURCE AND PROVENANCE
+# ══════════════════════════════════════════════════════════════════════════
+# ── Source and provenance ──────────────────────────────
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+:Src_Lease a norma:LegalSource ;
+    norma:regulationName "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasSourceExpression :Expr_es, :Expr_en ;
+    rdfs:comment "No norma:NormativeRank fits a private contract (OrganisationalRank is for internal instruments), so the source carries none."@en .
+:Expr_es a norma:LegalSourceExpression ; dcterms:language "es" ; rdfs:label "Spanish original (anonymised), authoritative: lease-es-original.txt"@en .
+:Expr_en a norma:LegalSourceExpression ; dcterms:language "en" ; rdfs:label "English translation (anonymised): lease-en-translation.txt"@en .
+
+:Annotator_ClaudeOpus55 a norma:AnnotatorAgent ; rdfs:label "Claude Opus 5.5 (Anthropic, model claude-opus-5-5)"@en .
+:Annotator_SheylaLeyva a norma:AnnotatorAgent ; rdfs:label "Sheyla Leyva-Sánchez"@en .
+:Annotation_lease a norma:AnnotationActivity ;
+    rdfs:label "Annotation of the residential lease in NORMA-O 2.0 by Claude Opus 5.5 and Sheyla Leyva"@en ;
+    norma:annotationDate "2026-11-01"^^xsd:date ;
+    norma:usedLegalSource :Src_Lease ;
+    norma:wasAssociatedWithAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva .
+
+:FCT_10_late norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_11_occupants norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_14_forum norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_1_governing norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_2_object norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_3_after3 norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_expiry norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_minimum norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_no_renewal norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_penalty norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_renewal norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_term norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_4_withdrawal norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease .
+:FCT_5_notice_L norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_5_notice_T norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_6_exemption norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_6_handover norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_7_signs_auth norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_8_improvements norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_8_works_auth norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_R1_ownership norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_R2_habitability norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_R3_use norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:FCT_terminated norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved .
+:F_10_offset norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:F_7_hazardous norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:F_7_other_use norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:F_7_signs norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:F_8_works norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_10_deposit norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_10_refund norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_11_damages norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_11_report norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_12_costs norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_13_community norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_13_utilities norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_3_rent norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_4_compensation norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_4_keys norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_6_care norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_6_repair norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_7_inform_sublet norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_7_pet_damage norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_7_pet_notice norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_8_minor_repairs norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_9_damage norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:O_9_return norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:P_2_use norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasBindingForce norma:Contractual .
+:P_3_sue norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:P_3_update norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .
+:P_7_sublet norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasBindingForce norma:Contractual .
+:P_9_deposit norma:hasLegalSource :Src_Lease ;
+    norma:fromRegulation "Residential lease agreement, Community of Madrid, 10 June 2026 (anonymised)" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:hasBindingForce norma:Contractual .

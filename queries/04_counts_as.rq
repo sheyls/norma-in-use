@@ -1,0 +1,7 @@
+# Counts-as chaining: rule -> institutional fact it establishes -> norm that fact activates
+SELECT ?rule ?fact ?activates ?factStatement WHERE {
+  ?rule norma:establishesTrigger ?te .
+  ?fact norma:hasTrigger ?te .
+  OPTIONAL { ?te norma:activatesNorm ?activates }
+  OPTIONAL { ?fact norma:conditionStatement ?factStatement }
+} ORDER BY ?rule ?activates

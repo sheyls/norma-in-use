@@ -1,0 +1,8 @@
+# Hohfeldian positions conferred by each norm: kind, holder, content, correlative and its holder
+SELECT ?norm ?kind ?holder ?action ?correlative ?corrKind ?corrHolder WHERE {
+  ?norm norma:confersLegalPosition ?p . ?p a ?k ; norma:hasPositionHolder ?holder .
+  VALUES ?k { norma:Duty norma:Privilege } BIND(STRAFTER(STR(?k), "#") AS ?kind)
+  OPTIONAL { ?p norma:concernsLegalAction/rdfs:label ?action }
+  OPTIONAL { ?p norma:isCorrelativeOf ?correlative . ?correlative a ?ck ; norma:hasPositionHolder ?corrHolder .
+             VALUES ?ck { norma:Claim norma:NoRight } BIND(STRAFTER(STR(?ck), "#") AS ?corrKind) }
+} ORDER BY ?holder ?kind ?norm

@@ -1,0 +1,10 @@
+# Constitutive rules: what each one states, which role it confers, which facts it establishes
+SELECT ?rule ?section ?statement ?confersRole ?establishes WHERE {
+  ?rule a norma:ConstitutiveRule .
+  OPTIONAL { ?rule norma:fromArticle ?section }
+  OPTIONAL { ?rule norma:factStatement ?statement }
+  OPTIONAL { SELECT ?rule (GROUP_CONCAT(DISTINCT STRAFTER(STR(?role), "#"); separator=", ") AS ?confersRole)
+             WHERE { ?rule norma:confersRole ?role } GROUP BY ?rule }
+  OPTIONAL { SELECT ?rule (GROUP_CONCAT(DISTINCT STRAFTER(STR(?c), "#"); separator=" | ") AS ?establishes)
+             WHERE { ?rule norma:establishesTrigger ?te . ?c norma:hasTrigger ?te } GROUP BY ?rule }
+} ORDER BY ?section ?rule

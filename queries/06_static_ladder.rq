@@ -1,0 +1,8 @@
+# Static prevalence ladder (no case): the rung of every norm, highest first
+SELECT ?level ?norm ?type WHERE {
+  ?o a normad:PrevalenceOrdering . FILTER NOT EXISTS { ?o normad:forFactPattern ?any }
+  ?e normad:inOrdering ?o ; normad:evaluatedNorm ?norm ; normad:prevalenceLevel ?level .
+  ?norm a ?t . ?t rdfs:subClassOf* norma:NormativeContent .
+  FILTER(?t != norma:NormativeContent && ?t != norma:RegulativeNorm)
+  BIND(STRAFTER(STR(?t), "#") AS ?type)
+} ORDER BY DESC(?level) ?norm

@@ -1,0 +1,12 @@
+# Defeat graph: who defeats whom, how (kind), under which gate and principle
+SELECT ?defeating ?defeated ?kind ?gate ?principle ?via WHERE {
+  { ?defeating norma:isExceptionTo ?defeated . BIND("Exception (shortcut)" AS ?kind) BIND("isExceptionTo" AS ?via) }
+  UNION
+  { ?defeating norma:supersedes ?defeated . BIND("Temporal (shortcut)" AS ?kind) BIND("supersedes" AS ?via) }
+  UNION
+  { ?d norma:defeatingNorm ?defeating ; norma:defeatedNorm ?defeated ; a ?k .
+    VALUES ?k { norma:ExceptionDefeater norma:ConflictDefeater norma:TemporalDefeater }
+    BIND(STRAFTER(STR(?k), "#") AS ?kind) BIND(STRAFTER(STR(?d), "#") AS ?via)
+    OPTIONAL { ?d norma:appliesWhen ?g . ?gc norma:hasTrigger ?g . BIND(STRAFTER(STR(?gc), "#") AS ?gate) }
+    OPTIONAL { ?d norma:hasResolutionPrinciple ?p . BIND(STRAFTER(STR(?p), "#") AS ?principle) } }
+} ORDER BY ?defeating ?defeated

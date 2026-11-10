@@ -1,0 +1,36 @@
+# Reading: Reading B: art. 11.3 LAU (RDL 29/2026)
+# Variant: art. 11.3 of the Urban Leases Act (LAU) as worded by Royal
+# Decree-Law 29/2026 (in force since 8 October 2026, pending validation by
+# Parliament) applies to this agreement, signed on 10 June 2026. Whether it
+# reaches agreements signed earlier is an open question of transitional law;
+# this variant settles it one way and the base annotation the other.
+# The only LAU provision in the graph. Difference from the base: one node, one
+# exception edge and one trigger.
+@prefix norma: <https://w3id.org/def/norma-o#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix :      <https://example.org/lease-en#> .
+
+:LAU_11_3 a norma:ConstitutiveRule ; norma:deonticId "LAU_11_3" ; norma:fromArticle "LAU 11.3 (RDL 29/2026)" ;
+    norma:factStatement "A tenant's withdrawal exercised under art. 11.1 (after six months, with thirty days' notice) gives the landlord no right to compensation." ;
+    rdfs:comment "Mandatory provision (art. 6 LAU): a contrary stipulation is deemed not to have been made. Represented as an exception rather than as invalidity, because NormStatus has no value for the nullity of a clause under mandatory law (gaps) and because, if RDL 29/2026 is not validated, the clause applies again."@en ;
+    norma:isExceptionTo :O_4_compensation .
+:c_withdrawal norma:hasTrigger :te_withdrawal_lau .
+:te_withdrawal_lau a norma:TriggerEvent ; norma:hasOutcome norma:TrueOutcome ; norma:activatesNorm :LAU_11_3 .
+
+# ── Source and provenance (variant) ──────────────────────────────
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+:Src_LAU a norma:LegalSource ;
+    norma:regulationName "Spanish Urban Leases Act (Ley 29/1994), art. 11.3 as worded by Royal Decree-Law 29/2026" ;
+    norma:hasRank norma:LegislativeRank .
+:Annotation_lease norma:usedLegalSource :Src_LAU .
+
+:LAU_11_3 norma:hasLegalSource :Src_LAU ;
+    norma:fromRegulation "Spanish Urban Leases Act (Ley 29/1994), art. 11.3 as worded by Royal Decree-Law 29/2026" ;
+    norma:hasNormStatus norma:Active ;
+    norma:hasExtractionMethod norma:LLMExtraction ;
+    norma:wasAttributedToAnnotator :Annotator_ClaudeOpus55, :Annotator_SheylaLeyva ;
+    norma:wasGeneratedByAnnotationActivity :Annotation_lease ;
+    norma:hasReviewStatus norma:Approved ;
+    norma:fromRank norma:LegislativeRank .

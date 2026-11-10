@@ -1,0 +1,11 @@
+# Regulative norms: type, section, addressee, counterparty, action and statement
+SELECT ?norm ?type ?section ?agent ?counterparty ?action ?statement WHERE {
+  ?norm a ?t . VALUES ?t { norma:Obligation norma:Prohibition norma:Permission norma:Facultative
+                           norma:Recommendation norma:NegativeRecommendation }
+  BIND(STRAFTER(STR(?t), "#") AS ?type)
+  OPTIONAL { ?norm norma:fromArticle ?section }
+  OPTIONAL { ?norm norma:hasLegalAgent ?agent }
+  OPTIONAL { ?norm norma:hasCounterparty ?counterparty }
+  OPTIONAL { ?norm norma:hasLegalAction/rdfs:label ?action }
+  OPTIONAL { ?norm norma:normStatement ?statement }
+} ORDER BY ?section ?norm
