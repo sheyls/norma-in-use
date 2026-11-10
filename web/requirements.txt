@@ -1,2 +1,0 @@
-# the web explorer, on top of ../requirements.txt
-flask>=3.0

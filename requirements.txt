@@ -1,1 +1,2 @@
 norma-o @ git+https://github.com/sheyls/NORMA-O@v2.0.0
+flask>=3.0

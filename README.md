@@ -1,3 +1,17 @@
+---
+title: NORMA-O in use · Residential lease
+emoji: ⚖️
+colorFrom: indigo
+colorTo: green
+sdk: gradio
+sdk_version: 6.31.0
+python_version: '3.12'
+app_file: app.py
+pinned: false
+license: cc-by-4.0
+short_description: NORMA-O 2.0 applied to a residential lease
+---
+
 # NORMA-O in use: a residential lease
 
 A worked example of [NORMA-O 2.0](https://github.com/sheyls/NORMA-O), an
@@ -25,7 +39,8 @@ norma-in-use/
 │   │   └── variant-lau-2026.ttl        an alternative legal reading (optional)
 │   └── generated/     PRODUCED BY THE ENGINE; never edited, can be deleted and rebuilt
 ├── queries/           SPARQL questions over the result, and query.py to run them
-└── web/               the explorer
+├── web/               the explorer
+└── app.py · Dockerfile   to host the explorer (Hugging Face Space, or any container)
 ```
 
 [`residential-lease/README.md`](residential-lease/README.md) describes the
@@ -34,7 +49,7 @@ contract and the annotation in detail.
 ## Using NORMA-O 2.0
 
 NORMA-O is a dependency, pinned to its release tag
-([`requirements.txt`](requirements.txt)):
+([`requirements.txt`](requirements.txt), next to Flask for the explorer):
 
 ```
 norma-o @ git+https://github.com/sheyls/NORMA-O@v2.0.0
@@ -58,8 +73,7 @@ Python 3.10 or later:
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt          # NORMA-O 2.0.0 (with rdflib)
-.venv/bin/pip install -r web/requirements.txt      # Flask, for the explorer
+.venv/bin/pip install -r requirements.txt          # NORMA-O 2.0.0 (with rdflib) and Flask
 
 # 1. annotation → derivation
 .venv/bin/norma residential-lease/annotation/lease.ttl --out residential-lease/generated
@@ -72,7 +86,8 @@ cd web && ../.venv/bin/python app.py
 .venv/bin/python queries/query.py 10_status_matrix
 ```
 
-Or, with Docker (the image installs NORMA-O from its tag and serves the explorer on port 7860):
+Live demo: <https://huggingface.co/spaces/sheyls/norma-in-use-lease>. Or, with
+Docker (the image installs NORMA-O from its tag and serves the explorer on port 7860):
 
 ```bash
 docker build -t norma-in-use . && docker run --rm -p 7860:7860 norma-in-use
